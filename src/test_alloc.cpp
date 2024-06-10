@@ -1,4 +1,4 @@
-﻿#include <utility>
+#include <utility>
 #include <iostream>
 #include <vector>
 #include <map>
@@ -9,14 +9,14 @@
 
 #include <boost/test/included/unit_test.hpp>
 
-#include "stack_alloc.h"
+#include "heap_alloc.h"
 using std::cout;
 using std::map;
 
 constexpr int alloc_size{ 100 };
 
-typedef std::map<int, int, std::less<int>, stack_allocator<std::pair<const int, int>, alloc_size > >  my_map_t;
-typedef stack_allocator<std::pair<int, int>, alloc_size> my_alloc_t;
+typedef std::map<int, int, std::less<int>, heap_allocator<std::pair<const int, int>, alloc_size > >  my_map_t;
+typedef heap_allocator<std::pair<int, int>, alloc_size> my_alloc_t;
 
 int gen_rand()
 {
@@ -94,7 +94,7 @@ void compare_allocs()
 }
 ///////////////////////////////////////////////////////////
 
-bool test_stack_allocator()
+bool test_heap_allocator()
 {
 	my_map_t emp;
 	std::map<int, int> smp;
@@ -166,7 +166,7 @@ bool test_stack_allocator()
 	return true;
 }
 
-BOOST_AUTO_TEST_CASE( stack_alloc_test )
+BOOST_AUTO_TEST_CASE( heap_alloc_test )
 {
-    BOOST_CHECK( test_stack_allocator()  );
+    BOOST_CHECK( test_heap_allocator()  );
 }

@@ -5,7 +5,7 @@
 #include <random>
 #include <chrono>
 
-#include "stack_alloc.h"
+#include "heap_alloc.h"
 #include "simple_list.h"
 using std::cout;
 using std::cin;
@@ -13,10 +13,10 @@ using std::map;
 
 constexpr int alloc_size{ 10 };
 
-typedef stack_allocator<std::pair<const int, int>, alloc_size> map_alloc_t;
+typedef heap_allocator<std::pair<const int, int>, alloc_size> map_alloc_t;
 typedef std::map<int, int, std::less<int>, map_alloc_t >   my_map_t;
 
-typedef stack_allocator<int, alloc_size> lst_alloc_t;
+typedef heap_allocator<int, alloc_size> lst_alloc_t;
 typedef simple_list_t<int, lst_alloc_t> my_lst_t;
 
 int fact(int i)

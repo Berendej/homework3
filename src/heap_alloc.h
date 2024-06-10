@@ -23,34 +23,43 @@ struct heap_allocator
 	int last_occupied_cell; // performance improvement
 	bool *cell_map;
 
-	void allocate_cells()
+	void allocate_cell_map()
 	{
-		cell_heap = static_cast<U*>(malloc(sz * sizeof(U)));
-		if ( nullptr == cell_heap )
-		{
-			throw std::bad_alloc;
-		}
-		cell_map = static_cast<bool>(malloc(sz * sizeof(bool)));
+		cell_map = static_cast<bool*>(malloc(sz * sizeof(bool)));
 		if ( nullptr == cell_map )
 		{
-			throw std::bad_alloc;
+			throw std::bad_alloc();
 		}
 	}
 
 	heap_allocator()
 	{
-		allocate_cells();
+		cell_heap = static_cast<T*>(malloc(sz * sizeof(T)));
+		if ( nullptr == cell_heap )
+		{
+			throw std::bad_alloc();
+		}
+		allocate_cell_map();
 		reset();
 	}
 
 	template <class U> heap_allocator(const heap_allocator <U, sz>&)
 	{
+		cell_heap = static_cast<U*>(malloc(sz * sizeof(U)));
+		if ( nullptr == cell_heap )
+		{
+			throw std::bad_alloc();
+		}
+		allocate_cell_map();
 		reset();
 	}
 
 	void reset()
 	{
-		for (auto &b : cell_map) b = false;
+		for (int ix =0; ix < sz; ++ix) 
+		{
+			cell_map[ix] = false;
+		}
 		last_occupied_cell = -1;		
 	}
 

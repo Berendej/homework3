@@ -1,5 +1,5 @@
 cmake_minimum_required( VERSION 3.10 )
-project( homework3 VERSION 0.1.1 )
+project( homework3 VERSION 0.2.1 )
 add_executable( alloc allocator.cpp  )
 add_executable( test_alloc test_alloc.cpp  )
 
@@ -16,4 +16,4 @@ include(CPack)
 #testing part which enables
 # cmake --build . --target test
 enable_testing()
-add_test(stack_alloc_test  test_alloc) 
+add_test(heap_alloc_test  test_alloc) 
